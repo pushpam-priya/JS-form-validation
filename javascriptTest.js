@@ -544,12 +544,12 @@ function phoneValidation(){
 }
 /**Show pass */
 
-function showPass(){
-  var x = document.getElementById("password");
-  if (x.type === "password") {
-    x.type = "text";
+function togglePasswordVisibility() {
+  var passwordInput = document.getElementById("password");
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
   } else {
-    x.type = "password";
+    passwordInput.type = "password";
   }
 }
 
