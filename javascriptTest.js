@@ -1,6 +1,6 @@
-// //////////////////////////////////////////// Username
+// ***Username ***//
 
-function usernameValidation() {
+function usernameValidation(event) {
   var usernameInput = document.getElementById("username");
   var usernameErrorMessage = document.getElementById("usernameErrorMessage");
   var username = usernameInput.value.trim();
@@ -9,7 +9,11 @@ function usernameValidation() {
   var validUsernames = [
     {"username": "Ram"},
     {"username": "Pushpam"},
-    {"username": "Priya"}
+    {"username": "Priya"},
+    {"username": "John"},
+    {"username": "James"},
+    {"username": "Neha"},
+    {"username": "Jane"},
   ];
 
   if (username === "") {
@@ -52,9 +56,7 @@ function emailValidation() {
     document.getElementById('email').value = inEmail;
   }
 
-  // inEmail = inEmail.replaceAll(" ", "");
-  // var emailRegex = /^\w+([\.-]?\w+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.){1,2}[a-zA-Z]{2,3}))$/;
-  var emailRegex = /^(?!\s)\w+([\.-]?\w+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.){1,2}[a-zA-Z]{2,3}))$/;
+ var emailRegex = /^(?!\s)\w+([\.-]?\w+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.){1,2}[a-zA-Z]{2,3}))$/;
 
   if (inEmail === "") {
     emailErrorMessage.textContent = "*Required";
@@ -109,7 +111,7 @@ function lastnameValidation(){
     return false;
   }
   if(lastname.length < 4 || lastname.length > 50){
-    lastnameErrorMessage.textContent = "should bd more than three character";
+    lastnameErrorMessage.textContent = "should be more than three character";
     return false;
   }
   if(!lastnameRegex.test(lastname)){
@@ -120,32 +122,26 @@ function lastnameValidation(){
   return true;
 }
 
-
-// /////////////////////////////////////////// Password Strength Check
+/**Password Strength Check**/
 
 function passwordValidation() {
   var passwordInput = document.getElementById("password");
   var confirmPasswordInput = document.getElementById("confirmPassword");
   var passwordErrorMessage = document.getElementById("passwordErrorMessage");
-
   var password = passwordInput.value;
 
-  // Check if the password is empty
   if (password === "") {
     passwordErrorMessage.textContent = " Password cannot be empty";
     return false;
   }
 
-  // Check if the password contains any spaces
   if (password.includes(" ")) {
     passwordErrorMessage.textContent = " Password should not contain spaces ";
     return false;
   }
 
-  // If all checks pass, clear the error message
   passwordErrorMessage.textContent = "";
 
-  // Check if passwords match if confirmation password is provided
   if (confirmPasswordInput.value !== "" && password !== confirmPasswordInput.value) {
     passwordErrorMessage.textContent = "Passwords do not match";
     return false;
@@ -197,35 +193,7 @@ function checkPasswordStrength(password) {
       return 'Unknown';
   }
 }
-
-// //////////////////////////////////// Captcha
-
-// (function(){
-//   const fonts = ["cursive", "sans-serif", "serif", "monospace"];
-//   let captchaValue = "";
-//   function generateCaptcha(){
-//     let value = btoa(math.random()*1000000000);
-//     value = value.substr(0, 5+Math.random()*5);
-//     captchavalue = value;
-//   }
-//   function setCaptcha(){
-//     let html = captchaValue.split("").map((char)=>{
-//       const rotate = -20 + Math.trunc(Math.random()*30);
-//       const font = Math.trunc(Math.random()*font.length);
-//       return <span>
-//         style="
-//            transform:rotate(${rotate}deg);
-//            font-family:${fonts[font]}
-//         "
-//         ${char}
-//       </span>;
-//     }).join("");
-//     document.querySelector(".su")
-//   }
-// })();
-
-
-// /////////////////////////////////////////// DOB
+/**Age Validation**/
 
 function birthDayValidation(){
   var dobInput = document.getElementById('inDob');
@@ -258,9 +226,7 @@ function phoneValidation(){
   var phoneInput = document.getElementById("phone").value;
   console.log(phoneInput);
   var phoneErrorMessage = document.getElementById("phoneErrorMessage");
-  var countryname = document.getElementById("countryname");
   var codeinput = document.getElementById("phonecode").value;
-  var namecountryjson="";
   var phoneregex = /^(?:\+\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/;
 
 
@@ -536,7 +502,6 @@ function phoneValidation(){
     phoneErrorMessage.textContent = "Invalid phone number format";
     return false;
   }
-
     phoneErrorMessage.textContent = "";
     return true;
 
@@ -554,16 +519,51 @@ function togglePasswordVisibility() {
 }
 
 
-/*****************Final SUbmit ****************** */
+/*****************Final Submit ****************** */
 function ValidChecks(event) {
   var checkboxInput = document.getElementById("checkbox-id");
   var captchaInput = document.getElementById("captcha-id");
   var response = grecaptcha.getResponse();
   var pass1 = document.getElementById("password").value
   var pass2 = document.getElementById("confirmPassword").value
-  if (!checkboxInput.checked) {
+  
+  /** Check other fields validation and prevent saving */
+  usernameErrorMessage = document.getElementById("usernameErrorMessage").textContent;
+  emailErrorMessage = document.getElementById("emailErrorMessage").textContent;
+  firstnameErrorMessage = document.getElementById("firstnameErrorMessage").textContent;
+  lastnameErrorMessage = document.getElementById("lastnameErrorMessage").textContent;
+  passwordErrorMessage = document.getElementById("passwordErrorMessage").textContent;
+  dobErrorMessage = document.getElementById('dobErrorMessage').textContent;
+  phoneErrorMessage = document.getElementById("phoneErrorMessage").textContent;
+
+
+  if(usernameErrorMessage !== ""){
+    alert("Username field is invalid!");
+    event.preventDefault();
+  }
+  else if(emailErrorMessage !== ""){
+    alert("Email field is invalid!");
+    event.preventDefault();
+  }
+  else if(firstnameErrorMessage !== "" || lastnameErrorMessage !== ""){
+    alert("Firstname or Lastname is invalid!");
+    event.preventDefault();
+  }
+  else if(passwordErrorMessage !== ""){
+    alert("Invalid password format!");
+    event.preventDefault();
+  }
+  else if(dobErrorMessage !== ""){
+    alert("DOB not acceptible");
+    event.preventDefault();
+  }
+  else if(phoneErrorMessage !== ""){
+    alert("Invalid Phone number");
+    event.preventDefault();
+  }
+  else if (!checkboxInput.checked) {
     alert("Please accept the Terms and Conditions.");
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); 
     return false;
   }
   else if(response.length == 0) 
@@ -578,8 +578,8 @@ function ValidChecks(event) {
     event.preventDefault();
     return false;
   }
-
-  
-  alert("Form submitted successfully!")
-  return true;
+  else{
+    alert("Form submitted successfully!")
+    return true;
+  }
 }
