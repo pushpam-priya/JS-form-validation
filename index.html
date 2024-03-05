@@ -96,11 +96,11 @@
     <input id="email" type="inEmail" value="" placeholder="Enter email" onchange="return emailValidation()" onblur="return emailValidation()" required><span style="color: red;" id="emailErrorMessage"></span><br>
     <label for="">Password</label><br>
     <div class="password-style">
-      <input id="password" type="password" value="" placeholder="Enter password" onchange="return passwordValidation()" onblur="return passwordValidation()"  onkeyup="updatePasswordStrength()" required>
-      <input id="showPass" type="checkbox" onclick="showPass()">Show Password &nbsp;&nbsp;
+      <input id="password" type="password" value="" placeholder="Enter password" onchange="return passwordValidation()" onblur="return passwordValidation()" required>
+      <input id="showPass" type="checkbox" onclick="togglePasswordVisibility()">Show Password &nbsp;&nbsp;
       <span style="color: red;" id="passwordErrorMessage">&nbsp;&nbsp;</span>
       <span id="password-strength"></span><br>
-    </div>
+    </div> 
     <label for="">Confirm Password</label><br>
     <input id="confirmPassword" type="password" placeholder="Enter password" required><br>
     <label for="">Date of Birth</label><br>
