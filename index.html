@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript Form Validation</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
-    *{
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    body{
-      font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
       background-color: rgb(233, 218, 131);
     }
-    form{
+
+    form {
       margin-top: 0;
     }
 
-    #captcha-id{
+    #captcha-id {
       margin-left: 10px;
     }
-    h1{
+
+    h1 {
       text-align: center;
       margin: 20px;
     }
-    label{
+
+    label {
       margin-left: 10px;
       height: 35px;
       font-weight: 700;
     }
-    input{
+
+    input {
       margin: 10px;
       height: 45px;
       width: 50%;
@@ -40,22 +46,35 @@
       border: none;
     }
 
-    img{
-      height: 30px;
-      width: 30px;
-    }
-    .captcha-refresh{
-      height: 35px;
-    }
-    #checkbox-id, #showPass{
-      width: 20px;
-    }
-
-    p{
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
       margin: 0;
     }
 
-    .submit-btn{
+    input:focus::placeholder {
+            color: transparent;
+    }
+
+    img {
+      height: 30px;
+      width: 30px;
+    }
+
+    .captcha-refresh {
+      height: 35px;
+    }
+
+    #checkbox-id,
+    #showPass {
+      width: 20px;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .submit-btn {
       width: 100px;
       height: 40px;
       font-size: 20px;
@@ -66,61 +85,77 @@
       background-color: rgb(86, 151, 207);
     }
 
-    .checkbox-style, .password-style, .phone-style{
+    .checkbox-style,
+    .password-style,
+    .phone-style {
       display: flex;
       align-items: center;
     }
 
-    #phone{
+    #phone {
       margin-left: 0;
       width: calc(50% - 61px);
     }
-    
-    #phonecode{
+
+    #phonecode {
       width: 50px;
       margin-right: 2px;
       margin-left: 0;
     }
   </style>
 </head>
+
 <body>
   <h1>Form Validation</h1>
   <form action="" id="myForm" onsubmit="return ValidChecks(event)">
 
     <label for="">Username</label><br>
-    <input id="username" type="text" value="" placeholder="Enter username" onchange="return usernameValidation()" onblur="return usernameValidation()" required><span style="color: red;" id="usernameErrorMessage"></span><br>
-    <strong style="color: rgb(124, 6, 6); margin-left: 10px;">Note : Usernames are fetched and validated from JSON. Existing names are: Ram, Pushpam, Priya, John, James, Neha, Jane </strong> <br> <br>
+    <input id="username" type="text" value="" placeholder="Enter username" onchange="return usernameValidation()"
+      onblur="return usernameValidation()" required><span style="color: red;" id="usernameErrorMessage"></span><br>
+    <strong style="color: rgb(124, 6, 6); margin-left: 10px;">Note : Usernames are fetched and validated from JSON.
+      Existing names are: Ram, Pushpam, Priya, John, James, Neha, Jane </strong> <br> <br>
     <label for="">First Name</label><br>
-    <input id="firstname" type="text" value="" placeholder="Enter first name" onchange="return firstnameValidation()" onblur="return firstnameValidation()" required><span style="color: red;" id="firstnameErrorMessage"></span><br>
+    <input id="firstname" type="text" value="" placeholder="Enter first name" onchange="return firstnameValidation()"
+      onblur="return firstnameValidation()" required><span style="color: red;" id="firstnameErrorMessage"></span><br>
     <label for="">Last Name</label><br>
-    <input id="lastname" type="text" value="" placeholder="Enter last name" onchange="return lastnameValidation()" onblur="return lastnameValidation()" required><span style="color: red;" id="lastnameErrorMessage" ></span><br>
+    <input id="lastname" type="text" value="" placeholder="Enter last name" onchange="return lastnameValidation()"
+      onblur="return lastnameValidation()" required><span style="color: red;" id="lastnameErrorMessage"></span><br>
     <label for="">Email</label><br>
-    <input id="email" type="inEmail" value="" placeholder="Enter email" onchange="return emailValidation()" onblur="return emailValidation()" required><span style="color: red;" id="emailErrorMessage"></span><br>
+    <input id="email" type="inEmail" value="" placeholder="Enter email" onchange="return emailValidation()"
+      onblur="return emailValidation()" required><span style="color: red;" id="emailErrorMessage"></span><br>
     <label for="">Password</label><br>
     <div class="password-style">
-      <input id="password" type="password" value="" placeholder="Enter password" onchange="passwordValidation(); updatePasswordStrength()" onblur="passwordValidation(); updatePasswordStrength()" required>
+      <input id="password" type="password" value="" placeholder="Enter password"
+        onchange="passwordValidation(); updatePasswordStrength()"
+        onblur="passwordValidation(); updatePasswordStrength()" required>
       <input id="showPass" type="checkbox" onclick="togglePasswordVisibility()">Show Password &nbsp;&nbsp;
-      <span style="color: red;" id="passwordErrorMessage">&nbsp;&nbsp;</span>
+      <span style="color: red;" id="passwordErrorMessage"></span>
       <span id="password-strength"></span><br>
-    </div> 
+    </div>
     <label for="">Confirm Password</label><br>
     <input id="confirmPassword" type="password" placeholder="Enter password" required><br>
     <label for="">Date of Birth</label><br>
-    <input id="inDob" type="date" placeholder="Enter DOB" onchange="return birthDayValidation()" onblur="return birthDayValidation()" required><span style="color: red;" id="dobErrorMessage"></span><br>
+    <input id="inDob" type="date" placeholder="Enter DOB" onchange="return birthDayValidation()"
+      onblur="return birthDayValidation()" required><span style="color: red;" id="dobErrorMessage"></span><br>
     <label for="">Phone Number</label><br>
     <div class="phone-style">
-    <strong>&nbsp;&nbsp;+</strong>
-    <input type="text" placeholder="Code" id="phonecode"  maxlength="6" onchange="return phoneValidation()" onblur="return phoneValidation()" required>
-    <input id="phone" type="text" placeholder="Enter phone number" onchange="return phoneValidation()" onblur="return phoneValidation()" required><span style="color: red;" id="phoneErrorMessage"></span><br>
-  </div>
-  <strong style="color: rgb(124, 6, 6); margin-left: 10px;">Note : Phone code is being fetched from JSON, hence only valid phone codes will be accepted.</strong> <br>
+      <strong>&nbsp;&nbsp;+</strong>
+      <input type="tel" placeholder="Code" id="phonecode" maxlength="6" onchange="return phoneValidation()"
+        onblur="return phoneValidation()" required>
+      <input id="phone" type="tel" placeholder="Enter phone number" max="20" onchange="return phoneValidation()"
+        onblur="return phoneValidation()" required><span style="color: red;" id="phoneErrorMessage"></span><br>
+    </div>
+    <strong style="color: rgb(124, 6, 6); margin-left: 10px;">Note : Phone code is being fetched from JSON, hence only
+      valid phone codes will be accepted.</strong> <br>
+    <strong style="color: rgb(124, 6, 6); margin-left: 10px;">Note : Phone numbers having +91 (India) as phone code should only start with 6,7,8 or 9.</strong> <br>
     <div class="checkbox-style">
-    <input type="checkbox"  name="" id="checkbox-id">
-    <a href="" onclick="event.preventDefault()">Terms and Conditions</a>
+      <input type="checkbox" name="" id="checkbox-id">
+      <a href="" onclick="event.preventDefault()">Terms and Conditions</a>
     </div>
     <div id="captcha-id" class="g-recaptcha" data-sitekey="6LfdX4opAAAAAGqCPdZzZ7tUefdHdr13N2QFGSXU"></div>
     <button type="submit" class="submit-btn">Submit</button>
   </form>
   <script src="javascriptTest.js"></script>
 </body>
+
 </html>
