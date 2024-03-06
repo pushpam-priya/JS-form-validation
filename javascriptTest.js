@@ -1,4 +1,4 @@
-// ***Username ***//
+// //////////////////////////////////////////// Username
 
 function usernameValidation(event) {
   var usernameInput = document.getElementById("username");
@@ -85,7 +85,7 @@ function firstnameValidation(){
     firstnameErrorMessage.textContent = "*Required";
     return false;
   }
-  if(firstname.length < 4 || firstname.length > 50){
+  if(firstname.length < 4 || firstname.length > 20){
     firstnameErrorMessage.textContent = "should be more than three character";
     return false;
   }
@@ -110,7 +110,7 @@ function lastnameValidation(){
     lastnameErrorMessage.textContent = "*Required";
     return false;
   }
-  if(lastname.length < 4 || lastname.length > 50){
+  if(lastname.length < 4 || lastname.length > 20){
     lastnameErrorMessage.textContent = "should be more than three character";
     return false;
   }
@@ -132,6 +132,11 @@ function passwordValidation() {
 
   if (password === "") {
     passwordErrorMessage.textContent = " Password cannot be empty";
+    return false;
+  }
+
+  if(password.length<=8){
+    passwordErrorMessage.textContent = " Password must be more than 8 characters";
     return false;
   }
 
@@ -224,11 +229,12 @@ function birthDayValidation(){
 
 function phoneValidation(){
   var phoneInput = document.getElementById("phone").value;
-  console.log(phoneInput);
+  // console.log(phoneInput);
   var phoneErrorMessage = document.getElementById("phoneErrorMessage");
   var codeinput = document.getElementById("phonecode").value;
   var phoneregex = /^(?:\+\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/;
 
+ 
 
   var countryCodeList = [
     { name :"BD", code: "880"},
@@ -483,7 +489,6 @@ function phoneValidation(){
     { name :"MZ", code: "258"}
   ];
 
-
   var hasMatch = countryCodeList.some(function(validCode) {
     return validCode.code === codeinput;
   });
@@ -491,20 +496,29 @@ function phoneValidation(){
     phoneErrorMessage.textContent = "Invalid country code";
     return false;
   }
-
+  // var phoneRegex1 = /^[6789]\d{9}$|^[6789]\d{2}[- ]?\d{3}[- ]?\d{4}$|^[6789]\d{2} ?\d{3} ?\d{4}$/;
+  if (codeinput == '91') {
+    var firstDigit = parseInt(phoneInput[0]); // Convert the first digit to a number
+    
+    if (!(firstDigit === 6 || firstDigit === 7 || firstDigit === 8 || firstDigit === 9)) {
+        console.log(firstDigit);
+        phoneErrorMessage.textContent = "For Code: +91, phone number must start with '6', '7', '8', or '9'";
+        return false;
+    }
+}
   if(phoneInput===""){
     phoneErrorMessage.textContent = "*Required";
     return false
   }
-  console.log(phoneInput);
-  if(!phoneregex.test(phoneInput)){
-    console.log(phoneregex.test(phoneInput));
+  // console.log(phoneInput);
+  else if(!phoneregex.test(phoneInput)){
+    // console.log(phoneregex.test(phoneInput));
     phoneErrorMessage.textContent = "Invalid phone number format";
     return false;
   }
     phoneErrorMessage.textContent = "";
     return true;
-
+  
 
 }
 /**Show pass */
